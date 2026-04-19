@@ -1,5 +1,6 @@
 # ============================================
 # OLT BASE CONFIGURATION
+# File: olt_base.py
 # Purpose: Basic system setup (hostname, VLANs, users, security)
 # ============================================
 

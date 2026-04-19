@@ -1,5 +1,6 @@
 # ============================================
 # WAC AP CONFIGURATION
+# File: wac_wifi.py
 # Purpose: CAPWAP, AP control, uplinks
 # ============================================
 
