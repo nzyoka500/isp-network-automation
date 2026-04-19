@@ -1,0 +1,13 @@
+# OLT BASE CONFIG
+
+sysname DCC-OLT-EA5801E
+timezone GMT+03:00
+
+vlan 2024 to 2027 smart
+vlan name 2024 OLT_MGMT
+vlan name 2025 GOK_OFFICE
+vlan name 2026 SCHOOL_NET
+vlan name 2027 PUBLIC_WIFI
+
+alarm output all
+event output all

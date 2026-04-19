@@ -1,0 +1,13 @@
+# WAC BASE CONFIG
+
+sysname DCC-WAC-9700-M1
+
+vlan batch 797 to 800 2024 to 2027
+
+stp enable
+dhcp enable
+dns resolve
+dns proxy enable
+
+management-port isolate enable
+management-plane isolate enable
