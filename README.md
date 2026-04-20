@@ -7,18 +7,17 @@
 
 ## Project Overview
 
-This project is a **ISP network automation framework** designed to standardize and automate configuration of core ISP infrastructure.
+This project is an **ISP Network Automation Framework** designed to automate configuration and management of core ISP infrastructure.
 
-It is used for deployment and management of:
+It standardizes deployment across multiple sites for:
 
-* Optical Line Terminals (OLT) – Fiber Access Layer
-* Wireless Access Controllers (WAC) – WiFi Access Layer
-* GPON service provisioning
-* VLAN segmentation and management
-* Customer onboarding (ONT & AP provisioning)
+* Optical Line Terminals (OLT) – Fiber access layer
+* Wireless Access Controllers (WAC) – Wireless network layer
+* VLAN segmentation and service isolation
+* User provisioning and secure access setup
+* Device initialization and baseline configuration
 
-The system reduces manual CLI configuration, improves deployment speed, and ensures **consistent ISP rollout standards across multiple sites**.
-
+The system replaces repetitive manual CLI configuration with automated, repeatable deployment scripts, improving speed, accuracy, and consistency.
 
 ## Network Architecture
 
@@ -26,7 +25,7 @@ The system reduces manual CLI configuration, improves deployment speed, and ensu
                          INTERNET
                              │
                      ┌───────▼────────┐
-                     │  ISP CORE CORE  │
+                     │    ISP CORE     │
                      └───────┬────────┘
                              │
           ┌──────────────────┴──────────────────┐
@@ -37,33 +36,29 @@ The system reduces manual CLI configuration, improves deployment speed, and ensu
    └──────┬──────┘                     └───────┬────────┘
           │ GPON                               │ CAPWAP
    ┌──────▼────────┐                 ┌────────▼────────┐
-   │  ONT Devices   │                │     Access Points│
+   │   ONT Devices  │               │  Access Points   │
    └──────┬────────┘                 └────────┬────────┘
           │                                  │
-   End Users (LAN)                 Wireless Clients (WiFi)
+     End Users (LAN)              Wireless Clients (WiFi)
 ```
-
 
 ## Key Features
 
 ### 🔹 OLT Automation (Fiber Layer)
 
-* Device initialization (hostname, timezone, alarms)
-* VLAN provisioning (Management, Office, School, Public WiFi)
-* Admin user creation and SSH access
-* GPON service readiness configuration
-* ONT onboarding support (manual provisioning enabled)
-
+* System initialization (hostname, timezone, alarms)
+* VLAN provisioning and service segmentation
+* Secure user and SSH configuration
+* GPON-ready baseline setup
+* ISP-grade management isolation
 
 ### 🔹 WAC Automation (Wireless Layer)
 
-* Wireless controller system configuration
-* VLAN segmentation for services
+* Wireless controller initialization
+* VLAN mapping for services
 * CAPWAP configuration for AP management
-* DHCP, DNS, STP enablement
-* Secure uplink trunk configuration
-* Centralized AP control and provisioning
-
+* DHCP, DNS, and STP activation
+* Secure trunk and management configuration
 
 ## Technology Stack
 
@@ -71,9 +66,7 @@ The system reduces manual CLI configuration, improves deployment speed, and ensu
 * Netmiko (SSH automation)
 * Paramiko (secure device communication)
 * Huawei OLT & WAC CLI
-* GPON, VLAN, CAPWAP networking standards
-
----
+* VLAN, GPON, CAPWAP networking standards
 
 ## Project Structure
 
@@ -81,39 +74,38 @@ The system reduces manual CLI configuration, improves deployment speed, and ensu
 isp-network-automation/
 │
 ├── olt/
-│   ├── olt_base.py          # OLT system initialization
-│   ├── olt_users.py         # User & SSH configuration
+│   ├── olt_system_setup.py
+│   ├── olt_user_management.py
 │
 ├── wac/
-│   ├── wac_base.py          # WAC system setup
-│   ├── wac_ap.py            # AP & CAPWAP configuration
+│   ├── wac_controller_setup.py
+│   ├── wac_ap_management.py
 │
 ├── configs/
-│   ├── olt_config.txt       # Reference OLT configs
-│   ├── wac_config.txt       # Reference WAC configs
+│   ├── olt_reference_config.txt
+│   ├── wac_reference_config.txt
 │
 ├── diagrams/
-│   ├── architecture.png     # Network architecture
-│   ├── olt_flow.png         # OLT provisioning flow
-│   ├── wac_flow.png         # WAC provisioning flow
+│   ├── explanation.png
+│   ├── implementation.png
 │
-├── main.py                  # Master deployment controller
-├── requirements.txt         # Dependencies
-└── README.md
+├── deployment_menu.py   # MAIN ENTRY POINT
+├── requirements.txt
+├── README.md
+├── LICENSE
+└── CHANGELOG.md
 ```
-
 
 ## Deployment Guide
 
-### Step 1: Clone Repository
+### 1. Clone Repository
 
 ```bash
 git clone https://github.com/your-org/isp-network-automation.git
 cd isp-network-automation
 ```
 
-
-### Step 2: Create Virtual Environment
+### 2. Create Virtual Environment
 
 ```bash
 python -m venv venv
@@ -121,64 +113,96 @@ venv\Scripts\activate   # Windows
 source venv/bin/activate  # Linux/Mac
 ```
 
-
-### Step 3: Install Dependencies
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-
-### Step 4: Run Full Deployment
+### 4. Run Deployment System
 
 ```bash
-python main.py
+python deployment_menu.py
 ```
 
+## Execution Flow
 
-## Execution Workflow
+When executed, the system supports step-by-step deployment:
 
-When executed, the system performs:
+1. OLT system initialization
+2. OLT user and SSH configuration
+3. WAC controller setup
+4. WAC AP provisioning
+5. Service readiness validation
 
-1. OLT Base Configuration
-2. OLT User & SSH Setup
-3. WAC Base Configuration
-4. AP & CAPWAP Deployment
-5. VLAN & Service Readiness Validation
+Each step requires **user confirmation before execution**.
 
 
-## Security & Compliance
+## Security & Best Practices
 
 * Default credentials must be changed before production use
-* SSH preferred over Telnet for secure access
-* VLAN segmentation enforced for service isolation
-* Management VLAN isolated (VLAN 2024)
-* Access control implemented via ACLs and AAA policies
+* SSH is enforced for secure device access
+* VLAN segmentation ensures service isolation
+* Management VLAN is isolated from user traffic
+* Role-based access control supported via user configuration
 
 
 ## Business Use Cases
 
-This system is used in ISP environments for:
+This framework is applicable in:
 
-* Fiber broadband deployment (FTTH)
-* Enterprise WiFi provisioning
-* Smart campus network rollout
-* Managed network service operations (MSP)
-* Multi-site ISP infrastructure standardization
+* FTTH (Fiber-To-The-Home) deployments
+* Enterprise WiFi infrastructure
+* Smart campus networks
+* ISP multi-site rollout standardization
+* Managed service provider (MSP) operations
 
 
-## Operational Impact
+## Operational Benefits
 
-* ⏱ Reduces deployment time significantly
-* ⚙ Eliminates manual CLI configuration errors
-* 📡 Standardizes ISP rollout process
-* 🔁 Enables repeatable multi-site deployments
-* 🧠 Improves operational consistency across engineers
+* Reduces manual configuration time
+* Minimizes human CLI errors
+* Ensures consistent ISP deployment standards
+* Supports repeatable multi-site installations
+* Improves operational efficiency for engineers
 
 
 ## Project Status
 
-- ✔ Production Deployment Ready
-- ✔ Modular Automation Architecture
-- ✔ ISP Field Tested Structure
-- 🚧 Future: Centralized GUI Dashboard + API Integration
+* ✔ Production-ready structure
+* ✔ Modular and scalable design
+* ✔ ISP deployment validated workflow
+* 🚧 Future enhancement: Web dashboard + API automation layer
+
+
+## Author
+
+**Eric Nzyoka**
+* Network Automation Engineer
+* ISP Infrastructure & Backend Systems
+
+
+
+# Simple example
+
+If someone asks:
+
+> “How do you run the system?”
+
+You answer:
+
+```bash
+python deployment_menu.py
+```
+
+Then you select:
+
+* `1` → OLT setup
+* `2` → OLT users
+* `5` → full deployment
+
+Each step asks:
+
+```text
+Proceed? (y/n)
+```
