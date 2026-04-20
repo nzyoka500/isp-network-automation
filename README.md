@@ -19,6 +19,9 @@ It standardizes deployment across multiple sites for:
 
 The system replaces repetitive manual CLI configuration with automated, repeatable deployment scripts, improving speed, accuracy, and consistency.
 
+### Screenshort image of project
+![CLI Image](./screenshot/CLI-Demo.png)
+
 ## Network Architecture
 
 ```text
